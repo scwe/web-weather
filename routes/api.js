@@ -1,10 +1,43 @@
 var express = require('express');
+var YQL = require('yql');
+var _ = require('underscore');
+var fs = require('fs');
+var path = require('path');
+var Fuse = require('fuse.js');
 var router = express.Router();
 
+var cityData = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'cities_new.json')));
+var citySearch = new Fuse(cityData.cities);
 
 router.get('/weather', function(req, res, next){
-    var names = req.query.names;
-    res.json(names);
+    var names = req.query.names.split(',');
+    if(names.length === 0){
+        return res.json({});
+    }
+    
+    var queryString = "SELECT * FROM weather.forecast WHERE woeid IN (SELECT woeid FROM geo.places(1) WHERE ";
+    queryString += _.map(names, function(n){return "text=\""+n+"\"";}).join(" OR ") + ")";
+
+    var query = new YQL(queryString);
+    query.exec(function(error, response){
+        res.json(response.query.results);
+    });
+});
+
+router.get('/weather/:name', function(req, res, next){
+    var query = new YQL("SELECT * FROM weather.forecast WHERE woeid IN (SELECT woeid FROM geo.places(1) WHERE text=\""+req.params.name+"\")");
+    query.exec(function(error, response){
+        res.json(response.query.results);
+    });
+});
+
+router.get('/cities', function(req, res, next){
+    res.json(cityData);
+});
+
+router.get('/cities/:subname', function(req, res, next){
+    var searchResults = _.map(citySearch.search(req.params.subname), function(index){return cityData.cities[index];});
+    res.json(_.take(searchResults, req.query.max ? req.query.max : 10));
 });
 
 module.exports = router;
