@@ -1,12 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TestComponent from './components/testComponent.jsx';
+import Selector from './components/selector.jsx';
+import Search from './components/search.jsx';
+import Navbar from './components/navbar.jsx';
+import Display from './components/display.jsx';
 
 window.onload = function(){
     ReactDOM.render(
-        <div className="test">
-            <TestComponent/>
-            Well at least we got this far...
+        <div>
+            <Navbar/>
+            <div className="container">
+                <div className="row">
+                    <Search/>
+                </div>
+                <div className="row">
+                    <Selector/>
+                </div>
+                <div className="divider"></div>
+                <div className="row">
+                    <Display/>
+                </div>
+            </div>
         </div>
         , document.getElementById('app'));
 }
