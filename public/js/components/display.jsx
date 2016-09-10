@@ -24,14 +24,12 @@ class Display extends React.Component {
 
     getRisingIcon(rising){
         switch (rising) {
-            case 0:
-                return "trending_flat";
             case 1:
                 return "arrow_upward";
             case 2:
                 return "arrow_downward";
             default:
-                return
+                return "trending_flat"
         }
     }
 
@@ -39,7 +37,7 @@ class Display extends React.Component {
     render(){
         var cards = _.map(this.props.data, (data) => {
             var windArrowStyle = {
-                transform: "rotate("+data[1].wind.direction+"deg)"
+                transform: "rotate("+(data[1].wind.direction)+"deg)"
             }
             //We are using the name of the place as a key... not ideal
             return <div className="col s12 m6 l4" key={data[0]}>
