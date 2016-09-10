@@ -6,3 +6,8 @@
 .top-buffer{
     padding-top: 15px;
 }
+
+.inline-pad{
+    padding-left: 5px;
+    padding-right: 5px;
+}
