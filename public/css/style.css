@@ -159,3 +159,37 @@ Large:
     text-align: right;
     text-overflow: ellipsis;
 }
+
+
+/* FORECAST related css */
+.forecast{
+    float: left;
+    padding-left: 8px;
+    padding-right: 3px;
+    position: relative;
+}
+
+.forecast:after{
+    content: "";
+    border-right: 1px solid #e0e0e0;
+    position: absolute;
+    top: 10%;
+    height: 80%;
+    right: 0px;
+}
+
+.right-border{
+}
+
+.forecast-icon{
+    float: left;
+    font-size: 2em;
+}
+
+.forecast-temp{
+    float: left;
+}
+
+.forecast-info{
+    padding-top: 8px;
+}

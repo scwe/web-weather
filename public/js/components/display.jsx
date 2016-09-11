@@ -49,7 +49,6 @@ class Display extends React.Component {
             var windArrowStyle = {
                 transform: "rotate("+(data[1].wind.direction)+"deg)"
             }
-            console.log("Lat: "+data[1].item.lat+" and "+data[1].item.long);
             //We are using the name of the place as a key... not ideal
             return <div className="col s12 m6 l4" key={data[0]}>
                 <div className="card">
@@ -164,9 +163,11 @@ class Display extends React.Component {
                         </div>
                     </div>
                     <div className="card-reveal">
-                        <span className="card-title grey-text text-darken-4">{data.title}<i className="material-icons right">close</i></span>
-                        <div className="divider"></div>
-                        <Forecast forecast={_.rest(data[1].item.forecast)}/>
+                        <span className="card-title grey-text text-darken-4">
+                            {data.title}
+                            <i className="material-icons more-button">close</i>
+                        </span>
+                        <Forecast forecast={_.rest(data[1].item.forecast)} units={data[1].units}/>
                     </div>
                 </div>
             </div>;
