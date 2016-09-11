@@ -6,8 +6,8 @@ var path = require('path');
 var Fuse = require('fuse.js');
 var router = express.Router();
 
-var cityData = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'cities_new.json')));
-var citySearch = new Fuse(cityData.cities);
+var cityData = fs.readFileSync(path.join(__dirname, "..", "data", "cities.txt")).toString().split("\n");
+var citySearch = new Fuse(cityData);
 
 //The query in this function works regardless of whether you use
 //A zip code or a name of the city
@@ -43,7 +43,7 @@ router.get('/cities', function(req, res, next){
 
 router.get('/cities/:subname', function(req, res, next){
     var searchResults = _.map(citySearch.search(req.params.subname), function(index){
-            return cityData.cities[index];
+            return cityData[index];
         });
 
     res.json(_.take(searchResults, req.query.max ? req.query.max : 10));
