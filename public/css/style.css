@@ -199,9 +199,7 @@ Large:
 .selector{
     max-height: 300px;
     margin-bottom: 20px;
-    margin-top: 20px
-    display: block;
-    width: 120px;
+    margin-top: 20px;
 }
 
 .columns{
@@ -229,5 +227,4 @@ Large:
     margin-bottom: 20px;
     width: 120px;
     display: block;
-    
 }
