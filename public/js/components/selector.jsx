@@ -11,7 +11,30 @@ class Selector extends React.Component {
                 "Washington": false,
                 "Los Angeles": false,
                 "San Francisco": false,
-                "Houston": false
+                "Houston": false,
+                "Some more": false,
+                "Some more1": false,
+                "Some more2": false,
+                "Some more3": false,
+                "Some more4": false,
+                "Some more5": false,
+                "Some more6": false,
+                "Some more8": false,
+                "Some more7": false,
+                "Some more9": false,
+                "Some morea": false,
+                "Some moreb": false,
+                "Some morec": false,
+                "Some mored": false,
+                "Some moree": false,
+                "Some moref": false,
+                "Some moreg": false,
+                "Some moreh": false,
+                "Some mori": false,
+                "Some morej": false,
+                "Some morek": false,
+                "Some morel": false,
+                "Some morem": false
             },
             weatherData:[]
         };
@@ -54,10 +77,10 @@ class Selector extends React.Component {
             }.bind(this)
         });
     }
-    
+
     render(){
         var elements = _.map(this.state.cities, (state, city) => {
-            return <li className="" key={city}>
+            return <li key={city}>
                 <input type="checkbox" defaultValue={state} id={city}></input>
                 <label htmlFor={city} className="grey-text text-darken-3" onClick={this.checkboxChanged.bind(this, city)}>{city}</label>
             </li>
@@ -65,12 +88,12 @@ class Selector extends React.Component {
 
 
         return <div>
-            <div className="row">
+            <div className="columns selector">
                 <ul>
                     {elements}
                 </ul>
-                <a className="btn waves-effect teal" onClick={this.onSubmit.bind(this)}>submit</a>
             </div>
+            <a className="btn-large waves-effect teal" id="submit-button" onClick={this.onSubmit.bind(this)}>submit</a>
             <div className="divider"></div>
             <Display data={this.state.weatherData}/>
         </div>;
