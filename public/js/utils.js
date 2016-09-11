@@ -22,6 +22,8 @@ function getImage(text){
             return "icon-thunderstorm";
         case "Scattered Thunderstorms":
             return "icon-thunderstorm-sun";
+        case "Scattered Showers":
+            return "icon-rain";
         default:
             console.log("Couldn't figure out: "+text);
             return "close";

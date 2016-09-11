@@ -60,7 +60,7 @@ class Display extends React.Component {
                         </span>
                         <div className="block-display">
                             <div className="main-icon">
-                                <i className={utils.getImage(data[1].item.condition.text)+" main-icon"}></i>
+                                <i className={utils.getImage(data[1].item.condition.text)}></i>
                             </div>
                             <div className="main-info-box">
                                 <div className="current-temp">

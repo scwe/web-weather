@@ -100,9 +100,6 @@ Large:
         display: inline;
     }
 
-    .hide-on-large{
-        display: none!important;
-    }
     .info-box{
         float: left;
         width: 38%;
@@ -129,17 +126,11 @@ Large:
     padding-left: 5px;
 }
 
-
 .main-info-box{
     width: 38%;
     float: left;
     padding-left: 15px;
 }
-
-.remove{
-    display: none;
-}
-
 
 .main-icon{
     float: left;
@@ -147,63 +138,16 @@ Large:
     width: 70px;
 }
 
-.sub-icon{
-    float: left;
-}
-.sub-icon i{
-    font-size: 2em;
-}
-
 .main-icon i{
     font-size: 5em;
-}
-
-.horiz-divider{
-    width: 1px;
-    overflow: hidden;
-    background-color: #e0e0e0;
-    height: 80%;
-    float: left;
 }
 
 .subtitle{
     font-size: 1.3em;
 }
 
-.wind-chill{
-
-}
-
-.wind-speed{
-
-}
-
-.atmos-visibility{
-
-}
-
-.atmos-pressure{
-
-}
-
-.atmos-humidity{
-
-}
-
-.current-condition{
-
-}
-
 .current-temp{
     font-size: 2em;
-}
-
-.high-temp{
-
-}
-
-.low-temp{
-
 }
 
 .small-text{
