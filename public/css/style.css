@@ -11,3 +11,207 @@
     padding-left: 5px;
     padding-right: 5px;
 }
+
+.block-display{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.bottom-block{
+    margin-bottom: 25px;
+}
+
+.clear{
+    clear: both;
+}
+
+.aux-temp span{
+    padding-right: 15px;
+}
+
+.astronomy{
+    margin-top: 5px;
+}
+
+.little-icon{
+    font-size: 1.6em;
+}
+
+.pad-left-8{
+    padding-left: 8px;
+}
+
+.bot-margin-5{
+    margin-bottom: 5px;
+}
+
+.small-title{
+    font-size: 22px!important;
+}
+/*
+@601px materialize goes to a medium screen
+@993px materialize goes to a large screen*/
+
+/* So we are going to split the cards like this:
+Small:
+    0px     -> 447px
+    601px   -> 839px
+    993px   -> 1231px
+Large:
+    448px   -> 600px
+    840px   -> 992px
+    1232px  -> upwards
+*/
+
+/*Query for small cards*/
+@media
+    (min-width: 0px)   and (max-width: 447px),
+    (min-width: 601px) and (max-width: 839px),
+    (min-width: 993px) and (max-width: 1231px){
+
+    .aux-temp > span{
+        display: inline;
+    }
+
+    .block-on-small{
+        display: block;
+    }
+
+    .info-box{
+        width: 100%;
+    }
+
+    .hide-on-small{
+        display: none!important;
+    }
+}
+
+/*Query for large cards*/
+@media
+    (min-width: 448px)  and (max-width: 600px),
+    (min-width: 840px)  and (max-width: 992px),
+    (min-width: 1232px){
+
+    .aux-temp > span{
+        display: block;
+    }
+
+    .block-on-small{
+        display: inline;
+    }
+
+    .hide-on-large{
+        display: none!important;
+    }
+    .info-box{
+        float: left;
+        width: 38%;
+    }
+
+}
+
+.more-button{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+.main-info{
+    height: 70%;
+    width: 100%;
+}
+
+.small-info{
+    width: 60%;
+    float: left;
+}
+
+.info-box{
+    padding-left: 5px;
+}
+
+
+.main-info-box{
+    width: 38%;
+    float: left;
+    padding-left: 15px;
+}
+
+.remove{
+    display: none;
+}
+
+
+.main-icon{
+    float: left;
+    height: 100%;
+    width: 70px;
+}
+
+.sub-icon{
+    float: left;
+}
+.sub-icon i{
+    font-size: 2em;
+}
+
+.main-icon i{
+    font-size: 5em;
+}
+
+.horiz-divider{
+    width: 1px;
+    overflow: hidden;
+    background-color: #e0e0e0;
+    height: 80%;
+    float: left;
+}
+
+.subtitle{
+    font-size: 1.3em;
+}
+
+.wind-chill{
+
+}
+
+.wind-speed{
+
+}
+
+.atmos-visibility{
+
+}
+
+.atmos-pressure{
+
+}
+
+.atmos-humidity{
+
+}
+
+.current-condition{
+
+}
+
+.current-temp{
+    font-size: 2em;
+}
+
+.high-temp{
+
+}
+
+.low-temp{
+
+}
+
+.small-text{
+    font-size: 0.7rem;
+    position: absolute;
+    bottom: 3px;
+    right: 10px;
+    overflow: hidden;
+    text-align: right;
+    text-overflow: ellipsis;
+}

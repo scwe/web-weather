@@ -30,10 +30,11 @@ function getImage(text){
 
 function formatTime(time){
     var hour = time.split(":")[0];
-    var minutes = parseInt(time.split(":")[1].split(" ")[0]);
+    var minutes = time.split(":")[1].split(" ")[0];
+    minutes = "00".substring(0, 2 - minutes.length) + minutes;
     var am = time.split(" ")[1];
 
-    return hour +":"+minutes.toPrecision(2)+am;
+    return hour +":"+minutes+am;
 }
 
 module.exports = {
