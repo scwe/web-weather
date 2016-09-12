@@ -150,6 +150,10 @@ Large:
     font-size: 2em;
 }
 
+.current-condition{
+    height: 3.2em;
+}
+
 .small-text{
     font-size: 0.7rem;
     position: absolute;
@@ -219,6 +223,11 @@ Large:
 /* correct webkit/chrome uneven margin on the first column*/
 .columns ul li:first-child{
     margin-top:0px;
+}
+
+.columns li{
+    padding-top: 6px;
+    padding-bottom: 6px;
 }
 
 #submit-button{
