@@ -6,8 +6,22 @@ var path = require('path');
 var Fuse = require('fuse.js');
 var router = express.Router();
 
-var cityData = fs.readFileSync(path.join(__dirname, "..", "data", "cities.txt")).toString().split("\n");
-var citySearch = new Fuse(cityData);
+function dataSort(a, b){
+    //We sort by score and then by population
+    if(a.score - b.score === 0){
+        return b.item.pop - a.item.pop;
+    }else{
+        return a.score - b.score;
+    }
+}
+
+var cityData = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "data", "cities.json")));
+var citySearch = new Fuse(cityData, {
+    keys: ['city'],
+    include: ['score'],
+    threshold: 0.2,
+    sortFn: dataSort
+});
 
 //The query in this function works regardless of whether you use
 //A zip code or a name of the city
@@ -31,7 +45,7 @@ router.get('/weather/:name', function(req, res, next){
         "SELECT * FROM weather.forecast WHERE woeid IN "+
         "(SELECT woeid FROM geo.places(1) WHERE text=\""+req.params.name+"\")"+
         " and u=\"c\"");
-    
+
     query.exec(function(error, response){
         res.json(response.query.results);
     });
@@ -42,11 +56,9 @@ router.get('/cities', function(req, res, next){
 });
 
 router.get('/cities/:subname', function(req, res, next){
-    var searchResults = _.map(citySearch.search(req.params.subname), function(index){
-            return cityData[index];
-        });
+    var searchResults = citySearch.search(req.params.subname);
+    res.json(_.take(searchResults, req.query.max ? req.query.max : searchResults.length));
 
-    res.json(_.take(searchResults, req.query.max ? req.query.max : 10));
 });
 
 module.exports = router;
