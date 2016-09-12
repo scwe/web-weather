@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'underscore';
 import utils from '../../utils.js';
 import Forecast from './forecast.jsx';
+import LoadingSpinner from './loadingSpinner.jsx';
 
 class WeatherDisplay extends React.Component {
     getLocation(cityData){
@@ -43,136 +44,153 @@ class WeatherDisplay extends React.Component {
         return loc + " ("+parseFloat(info.lat).toFixed(2)+", "+parseFloat(info.long).toFixed(2)+") at "+time;
     }
 
-
-    render(){
-        var cards = _.map(this.props.weatherData, (data) => {
-            var windArrowStyle = {
-                transform: "rotate("+(data.wind.direction)+"deg)"
-            }
-            //We are using the name of the place as a key... not ideal
-            return <div className="col s12 m6 l4" key={this.getLocation(data)}>
-                <div className="card">
-                    <div className="card-content">
-                        <span className="card-title activator grey-text text-darken-4 small-title">
-                            {this.getLocation(data)}
-                            <i className="material-icons right more-button">more_vert</i>
-                        </span>
-                        <div className="block-display">
-                            <div className="main-icon">
-                                <i className={utils.getImage(data.item.condition.text)}></i>
+    getCardHTML(data){
+        var windArrowStyle = {
+            transform: "rotate("+(data.wind.direction)+"deg)"
+        }
+        return <div className="col s12 m6 l4" key={this.getLocation(data)}>
+            <div className="card">
+                <div className="card-content">
+                    <span className="card-title activator grey-text text-darken-4 small-title">
+                        {this.getLocation(data)}
+                        <i className="material-icons right more-button">more_vert</i>
+                    </span>
+                    <div className="block-display">
+                        <div className="main-icon">
+                            <i className={utils.getImage(data.item.condition.text)}></i>
+                        </div>
+                        <div className="main-info-box">
+                            <div className="current-temp">
+                                {this.toTemp(data.item.condition.temp, data)}
                             </div>
-                            <div className="main-info-box">
-                                <div className="current-temp">
-                                    {this.toTemp(data.item.condition.temp, data)}
-                                </div>
-                                <div className="current-condition">
-                                    {data.item.condition.text}
-                                </div>
+                            <div className="current-condition">
+                                {data.item.condition.text}
                             </div>
-                            <div className="clear hide-on-large"></div>
-                            <div className="info-box aux-temp">
-                                <span>
-                                    <span className="hide-on-small">
-                                        High -
-                                    </span>
-                                    <span>
-                                        {this.toTemp(data.item.forecast[0].high, data)}
-                                    </span>
+                        </div>
+                        <div className="clear hide-on-large"></div>
+                        <div className="info-box aux-temp">
+                            <span>
+                                <span className="hide-on-small">
+                                    High -
                                 </span>
                                 <span>
-                                    <span className="hide-on-small">
-                                        Low -
-                                    </span>
-                                    <span>
-                                        {this.toTemp(data.item.forecast[0].low, data)}
-                                    </span>
-                                </span>
-                            </div>
-                            <div className="clear"></div>
-                        </div>
-                        <div className="block-display">
-                            <span className="astronomy block-on-small info-box">
-                                <i className="icon-sunrise little-icon"></i>
-                                <span className="pad-left-8">
-                                    {utils.formatTime(data.astronomy.sunrise)}
+                                    {this.toTemp(data.item.forecast[0].high, data)}
                                 </span>
                             </span>
-                            <span className="astronomy block-on-small info-box">
-                                <i className="icon-sunset little-icon"></i>
-                                <span className="pad-left-8">
-                                    {utils.formatTime(data.astronomy.sunset)}
+                            <span>
+                                <span className="hide-on-small">
+                                    Low -
+                                </span>
+                                <span>
+                                    {this.toTemp(data.item.forecast[0].low, data)}
                                 </span>
                             </span>
-                            <div className="clear"></div>
-                        </div>
-                        <div className="divider"></div>
-                        <div className="block-display">
-                            <div className="subtitle bot-margin-5">
-                                Wind
-                            </div>
-                            <div className="block-display">
-                                <span className="block-on-small info-box">
-                                    <i className="material-icons" style={windArrowStyle}>navigation</i>
-                                    <span className="pad-left-8">
-                                        {this.toSpeed(data.wind.speed, data)}
-                                    </span>
-                                </span>
-                                <span className="block-on-small info-box">
-                                    <i className="icon-wind little-icon"></i>
-                                    <span className="pad-left-8">
-                                        {this.toTemp(data.wind.chill, data)}
-                                    </span>
-                                </span>
-                            </div>
-                            <div className="clear"></div>
-                        </div>
-                        <div className="divider"></div>
-                        <div className="block-display bottom-block">
-                            <div className="block-display">
-                                <div className="subtitle">
-                                    Atmosphere
-                                </div>
-                            </div>
-                            <div className="block-display">
-                                <div className="block-display">
-                                    <i className="icon-pressure little-icon"></i>
-                                    <span className="pad-left-8">
-                                        {this.toPressure(parseInt(data.atmosphere.pressure).toFixed(), data)+",  " +
-                                            this.getRisingState(data.atmosphere.rising)}
-                                    </span>
-                                </div>
-                                <div className="clear"></div>
-                                <span className="info-box block-on-small">
-                                    <i className="icon-humiditidy little-icon"></i>
-                                    <span className="pad-left-8">
-                                        {data.atmosphere.humidity +"%"}
-                                    </span>
-                                </span>
-                                <span className="info-box block-on-small">
-                                    <i className="icon-visibility little-icon"></i>
-                                    <span className="pad-left-8">
-                                        {this.toDist((data.atmosphere.visibility / 100).toFixed(2), data)}
-                                    </span>
-                                </span>
-                                <div className="clear"></div>
-                            </div>
                         </div>
                         <div className="clear"></div>
-                        <div className="small-text">
-                            {this.getInfoText(data.item)}
+                    </div>
+                    <div className="block-display">
+                        <span className="astronomy block-on-small info-box">
+                            <i className="icon-sunrise little-icon"></i>
+                            <span className="pad-left-8">
+                                {utils.formatTime(data.astronomy.sunrise)}
+                            </span>
+                        </span>
+                        <span className="astronomy block-on-small info-box">
+                            <i className="icon-sunset little-icon"></i>
+                            <span className="pad-left-8">
+                                {utils.formatTime(data.astronomy.sunset)}
+                            </span>
+                        </span>
+                        <div className="clear"></div>
+                    </div>
+                    <div className="divider"></div>
+                    <div className="block-display">
+                        <div className="subtitle bot-margin-5">
+                            Wind
+                        </div>
+                        <div className="block-display">
+                            <span className="block-on-small info-box">
+                                <i className="material-icons" style={windArrowStyle}>navigation</i>
+                                <span className="pad-left-8">
+                                    {this.toSpeed(data.wind.speed, data)}
+                                </span>
+                            </span>
+                            <span className="block-on-small info-box">
+                                <i className="icon-wind little-icon"></i>
+                                <span className="pad-left-8">
+                                    {this.toTemp(data.wind.chill, data)}
+                                </span>
+                            </span>
+                        </div>
+                        <div className="clear"></div>
+                    </div>
+                    <div className="divider"></div>
+                    <div className="block-display bottom-block">
+                        <div className="block-display">
+                            <div className="subtitle">
+                                Atmosphere
+                            </div>
+                        </div>
+                        <div className="block-display">
+                            <div className="block-display">
+                                <i className="icon-pressure little-icon"></i>
+                                <span className="pad-left-8">
+                                    {this.toPressure(parseInt(data.atmosphere.pressure).toFixed(), data)+",  " +
+                                        this.getRisingState(data.atmosphere.rising)}
+                                </span>
+                            </div>
+                            <div className="clear"></div>
+                            <span className="info-box block-on-small">
+                                <i className="icon-humiditidy little-icon"></i>
+                                <span className="pad-left-8">
+                                    {data.atmosphere.humidity +"%"}
+                                </span>
+                            </span>
+                            <span className="info-box block-on-small">
+                                <i className="icon-visibility little-icon"></i>
+                                <span className="pad-left-8">
+                                    {this.toDist((data.atmosphere.visibility / 100).toFixed(2), data)}
+                                </span>
+                            </span>
+                            <div className="clear"></div>
                         </div>
                     </div>
-                    <div className="card-reveal">
-                        <span className="card-title grey-text text-darken-4">
-                            {data.title}
-                            <i className="material-icons more-button">close</i>
-                        </span>
-                        <Forecast forecast={_.rest(data.item.forecast)} units={data.units}/>
+                    <div className="clear"></div>
+                    <div className="small-text">
+                        {this.getInfoText(data.item)}
                     </div>
                 </div>
+                <div className="card-reveal">
+                    <span className="card-title grey-text text-darken-4">
+                        {data.title}
+                        <i className="material-icons more-button">close</i>
+                    </span>
+                    <Forecast forecast={_.rest(data.item.forecast)} units={data.units}/>
+                </div>
+            </div>
+        </div>;
+    }
+
+    render(){
+        if(this.props.isFetching && this.props.weatherData.length === 0){
+            return <div className="row">
+                <div className="center big-top-buffer">
+                    <LoadingSpinner big={true}/>
+                </div>
             </div>;
-            });
-        var title = this.props.weatherData.length === 0 ? "Select some cities and then click submit to get the weather" : "Your Weather";
+        }
+
+        var title = "";
+        var cards = "";
+
+        if(this.props.weatherData.length === 0){
+            title = "Select your cities";
+        }else{
+            cards = _.map(this.props.weatherData, this.getCardHTML.bind(this));
+            title = "Your Weather";
+        }
+
+
         return <div className="row">
             <h4 className="center-align top-buffer">{title}</h4>
             {cards}

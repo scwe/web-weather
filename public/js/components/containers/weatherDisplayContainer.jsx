@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = (state, props) => {
     return {
-        weatherData: state.weather.data
+        weatherData: state.weather.data,
+        isFetching: state.weather.isFetching
     };
 }
 

@@ -6,6 +6,9 @@
 .top-buffer{
     padding-top: 15px;
 }
+.big-top-buffer{
+    padding-top: 25px;
+}
 
 .inline-pad{
     padding-left: 5px;
@@ -235,5 +238,12 @@ Large:
     margin-right: auto;
     margin-bottom: 20px;
     width: 120px;
+    display: block;
+}
+
+.center{
+    margin-left: auto;
+    margin-right: auto;
+    width: 80px;
     display: block;
 }
