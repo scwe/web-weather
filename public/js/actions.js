@@ -23,7 +23,6 @@ export function requestCities(input){
 }
 
 export function recieveCities(data){
-    console.log(data);
     var test = data.map(function(city){
         return {
             name: city.item.city,
