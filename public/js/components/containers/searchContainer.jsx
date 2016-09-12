@@ -9,8 +9,7 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = (dispatch, props) => {
     return {
         onChange: (input) => {
-            console.log(input);
-            dispatch(fetchCities(input))
+            dispatch(fetchCities(input.target.value))
         }
     }
 }

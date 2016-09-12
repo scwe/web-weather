@@ -19,7 +19,7 @@ var cityData = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "data", "ci
 var citySearch = new Fuse(cityData, {
     keys: ['city'],
     include: ['score'],
-    threshold: 0.2,
+    threshold: 0.5,
     sortFn: dataSort
 });
 

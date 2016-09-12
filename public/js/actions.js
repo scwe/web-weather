@@ -73,7 +73,7 @@ export function fetchCities(cityName){
         }
         dispatch(requestCities(cityName));
 
-        return fetch("/api/cities/"+cityName)
+        return fetch("/api/cities/"+cityName+"?max=30")
             .then(response => response.json())
             .then(data => {
                 dispatch(recieveCities(data));
