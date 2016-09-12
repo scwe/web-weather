@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
-import utils from '../utils.js';
+import utils from '../../utils.js';
 
 class Forecast extends React.Component {
     convertDate(date){

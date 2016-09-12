@@ -1,9 +1,9 @@
 import React from 'react';
 import _ from 'underscore';
-import utils from '../utils.js';
+import utils from '../../utils.js';
 import Forecast from './forecast.jsx';
 
-class Display extends React.Component {
+class WeatherDisplay extends React.Component {
     getLocation(cityData){
         var l = cityData.location;
         return l.city + ", " + l.region;
@@ -45,7 +45,7 @@ class Display extends React.Component {
 
 
     render(){
-        var cards = _.map(this.props.data, (data) => {
+        var cards = _.map(this.props.weatherData, (data) => {
             var windArrowStyle = {
                 transform: "rotate("+(data[1].wind.direction)+"deg)"
             }
@@ -172,7 +172,7 @@ class Display extends React.Component {
                 </div>
             </div>;
             });
-        var title = this.props.data.length === 0 ? "Select some cities and then click submit to get the weather" : "Your Weather";
+        var title = this.props.weatherData.length === 0 ? "Select some cities and then click submit to get the weather" : "Your Weather";
         return <div className="row">
             <h4 className="center-align top-buffer">{title}</h4>
             {cards}
@@ -180,4 +180,4 @@ class Display extends React.Component {
     }
 }
 
-export default Display;
+export default WeatherDisplay;
