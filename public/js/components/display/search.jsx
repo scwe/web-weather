@@ -20,11 +20,10 @@ class Search extends React.Component {
     render(){
         return <div className="row">
             <div className="input-field col s12">
-                <i className="material-icons prefix">textsms</i>
-                <input type="text" id="autocomplete-input" className="autocomplete" onChange={this.props.onChange.bind(this)}></input>
-                <label htmlFor="autocomplete-input">Search</label>
-            </div>
-        </div>;
+                <input id="search" type="text" onChange={this.props.onChange.bind(this)}></input>
+                    <label htmlFor="search">Search</label>
+                </div>
+            </div>;
     }
 }
 
