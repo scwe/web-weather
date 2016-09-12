@@ -1,5 +1,6 @@
 import Search from '../display/search.jsx';
 import { connect } from 'react-redux';
+import {fetchCities} from '../../actions';
 
 const mapStateToProps = (state, props) => {
     return {};
@@ -7,9 +8,9 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        onChange: (newCities) => {
-            console.log("text changed...");
-            dispatch
+        onChange: (input) => {
+            console.log(input);
+            dispatch(fetchCities(input))
         }
     }
 }

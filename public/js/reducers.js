@@ -1,7 +1,7 @@
 import {
     REQUEST_CITIES, RECIEVE_CITIES,
     REQUEST_WEATHER, RECIEVE_WEATHER,
-    TOGGLE_SELECTED} from './actions';
+    RESET_CITIES, TOGGLE_SELECTED} from './actions';
 import _ from 'underscore';
 
 const initialState = {
@@ -92,6 +92,10 @@ function weatherApp(state = initialState, action){
                     toFetch: [],
                     data: action.data
                 })
+            });
+        case RESET_CITIES:
+            return Object.assign({}, state, {
+                cities: initialState.cities
             });
         default:
             return state;

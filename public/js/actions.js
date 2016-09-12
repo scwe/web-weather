@@ -4,7 +4,8 @@ export const TOGGLE_SELECTED = "TOGGLE_SELECTED";
 export const REQUEST_CITIES = "REQUEST_CITIES";
 export const RECIEVE_CITIES = "RECIEVE_CITIES";
 export const REQUEST_WEATHER = "REQUEST_WEATHER";
-export const RECIEVE_WEATHER = "RECIEVE_WEATHER"
+export const RECIEVE_WEATHER = "RECIEVE_WEATHER";
+export const RESET_CITIES = "RESET_CITIES";
 
 
 export function toggleSelected(name){
@@ -22,9 +23,20 @@ export function requestCities(input){
 }
 
 export function recieveCities(data){
+    console.log(data);
+    var test = data.map(function(city){
+        return {
+            name: city.item.city,
+            checked: false,
+            displayed: false,
+            pop: city.item.pop,
+            score: city.score
+        }
+    });
+
     return {
         type: RECIEVE_CITIES,
-        data: data
+        data: test
     }
 }
 
@@ -46,8 +58,19 @@ export function recieveWeather(data){
     }
 }
 
+export function resetCities(){
+    return {
+        type: RESET_CITIES
+    }
+}
+
 export function fetchCities(cityName){
     return function(dispatch){
+        if(!cityName){
+            //When there is nothing typed in we go back to the default city values
+            dispatch(resetCities());
+            return;
+        }
         dispatch(requestCities(cityName));
 
         return fetch("/api/cities/"+cityName)
