@@ -7,8 +7,9 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        onChange: (text) => {
+        onChange: (newCities) => {
             console.log("text changed...");
+            dispatch
         }
     }
 }

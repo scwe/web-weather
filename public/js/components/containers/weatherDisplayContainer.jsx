@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = (state, props) => {
     return {
-        weatherData: state.weather
+        weatherData: state.weather.data
     };
 }
 

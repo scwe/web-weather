@@ -4,7 +4,6 @@ import utils from '../../utils.js';
 
 class Forecast extends React.Component {
     convertDate(date){
-        console.log("Splitting: "+date);
         var split = date.split(" ");
         return split[0] + " " + split[1];
     }

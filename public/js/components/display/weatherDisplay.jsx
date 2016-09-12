@@ -47,26 +47,26 @@ class WeatherDisplay extends React.Component {
     render(){
         var cards = _.map(this.props.weatherData, (data) => {
             var windArrowStyle = {
-                transform: "rotate("+(data[1].wind.direction)+"deg)"
+                transform: "rotate("+(data.wind.direction)+"deg)"
             }
             //We are using the name of the place as a key... not ideal
-            return <div className="col s12 m6 l4" key={data[0]}>
+            return <div className="col s12 m6 l4" key={this.getLocation(data)}>
                 <div className="card">
                     <div className="card-content">
                         <span className="card-title activator grey-text text-darken-4 small-title">
-                            {this.getLocation(data[1])}
+                            {this.getLocation(data)}
                             <i className="material-icons right more-button">more_vert</i>
                         </span>
                         <div className="block-display">
                             <div className="main-icon">
-                                <i className={utils.getImage(data[1].item.condition.text)}></i>
+                                <i className={utils.getImage(data.item.condition.text)}></i>
                             </div>
                             <div className="main-info-box">
                                 <div className="current-temp">
-                                    {this.toTemp(data[1].item.condition.temp, data[1])}
+                                    {this.toTemp(data.item.condition.temp, data)}
                                 </div>
                                 <div className="current-condition">
-                                    {data[1].item.condition.text}
+                                    {data.item.condition.text}
                                 </div>
                             </div>
                             <div className="clear hide-on-large"></div>
@@ -76,7 +76,7 @@ class WeatherDisplay extends React.Component {
                                         High -
                                     </span>
                                     <span>
-                                        {this.toTemp(data[1].item.forecast[0].high, data[1])}
+                                        {this.toTemp(data.item.forecast[0].high, data)}
                                     </span>
                                 </span>
                                 <span>
@@ -84,7 +84,7 @@ class WeatherDisplay extends React.Component {
                                         Low -
                                     </span>
                                     <span>
-                                        {this.toTemp(data[1].item.forecast[0].low, data[1])}
+                                        {this.toTemp(data.item.forecast[0].low, data)}
                                     </span>
                                 </span>
                             </div>
@@ -94,13 +94,13 @@ class WeatherDisplay extends React.Component {
                             <span className="astronomy block-on-small info-box">
                                 <i className="icon-sunrise little-icon"></i>
                                 <span className="pad-left-8">
-                                    {utils.formatTime(data[1].astronomy.sunrise)}
+                                    {utils.formatTime(data.astronomy.sunrise)}
                                 </span>
                             </span>
                             <span className="astronomy block-on-small info-box">
                                 <i className="icon-sunset little-icon"></i>
                                 <span className="pad-left-8">
-                                    {utils.formatTime(data[1].astronomy.sunset)}
+                                    {utils.formatTime(data.astronomy.sunset)}
                                 </span>
                             </span>
                             <div className="clear"></div>
@@ -114,13 +114,13 @@ class WeatherDisplay extends React.Component {
                                 <span className="block-on-small info-box">
                                     <i className="material-icons" style={windArrowStyle}>navigation</i>
                                     <span className="pad-left-8">
-                                        {this.toSpeed(data[1].wind.speed, data[1])}
+                                        {this.toSpeed(data.wind.speed, data)}
                                     </span>
                                 </span>
                                 <span className="block-on-small info-box">
                                     <i className="icon-wind little-icon"></i>
                                     <span className="pad-left-8">
-                                        {this.toTemp(data[1].wind.chill, data[1])}
+                                        {this.toTemp(data.wind.chill, data)}
                                     </span>
                                 </span>
                             </div>
@@ -137,21 +137,21 @@ class WeatherDisplay extends React.Component {
                                 <div className="block-display">
                                     <i className="icon-pressure little-icon"></i>
                                     <span className="pad-left-8">
-                                        {this.toPressure(parseInt(data[1].atmosphere.pressure).toFixed(), data[1])+",  " +
-                                            this.getRisingState(data[1].atmosphere.rising)}
+                                        {this.toPressure(parseInt(data.atmosphere.pressure).toFixed(), data)+",  " +
+                                            this.getRisingState(data.atmosphere.rising)}
                                     </span>
                                 </div>
                                 <div className="clear"></div>
                                 <span className="info-box block-on-small">
                                     <i className="icon-humiditidy little-icon"></i>
                                     <span className="pad-left-8">
-                                        {data[1].atmosphere.humidity +"%"}
+                                        {data.atmosphere.humidity +"%"}
                                     </span>
                                 </span>
                                 <span className="info-box block-on-small">
                                     <i className="icon-visibility little-icon"></i>
                                     <span className="pad-left-8">
-                                        {this.toDist((data[1].atmosphere.visibility / 100).toFixed(2), data[1])}
+                                        {this.toDist((data.atmosphere.visibility / 100).toFixed(2), data)}
                                     </span>
                                 </span>
                                 <div className="clear"></div>
@@ -159,7 +159,7 @@ class WeatherDisplay extends React.Component {
                         </div>
                         <div className="clear"></div>
                         <div className="small-text">
-                            {this.getInfoText(data[1].item)}
+                            {this.getInfoText(data.item)}
                         </div>
                     </div>
                     <div className="card-reveal">
@@ -167,7 +167,7 @@ class WeatherDisplay extends React.Component {
                             {data.title}
                             <i className="material-icons more-button">close</i>
                         </span>
-                        <Forecast forecast={_.rest(data[1].item.forecast)} units={data[1].units}/>
+                        <Forecast forecast={_.rest(data.item.forecast)} units={data.units}/>
                     </div>
                 </div>
             </div>;
